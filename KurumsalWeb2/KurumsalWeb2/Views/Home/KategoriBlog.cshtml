@@ -1,0 +1,94 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@using KurumsalWeb2.Helper
+@model IPagedList<KurumsalWeb2.Models.Model.Blog>
+@{
+    ViewBag.Title = "KategoriBlog";
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+
+<section id="blog" class="blog">
+    <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+            <div class="col-lg-8 entries">
+                @foreach (var item in Model)
+                {
+                    <article class="entry">
+
+
+                        <h2 class="entry-title">
+                            <a href="/Blog/@SeoHelper.ToSeoUrl(item.Baslik).ToLower()-@item.BlogId">
+                                @item.Baslik
+                                </a>
+                        </h2>
+                        <br>
+                        <div class="entry-img">
+                            <img src="@item.ResimURL" width="200" height="100" alt="@item.Baslik" class="img-fluid">
+                        </div>
+                        <p>
+                            @Html.Raw(item.Icerik)
+                        </p>
+
+                        <div class="entry-content">
+
+                            <div class="entry-meta">
+                                <ul>
+                                    <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#">@item.Kategori.KategoriAd</a></li>
+                                </ul>
+                            </div>
+                            <div class="read-more">
+                                <a href="/Blog/@SeoHelper.ToSeoUrl(item.Baslik).ToLower()-@item.BlogId"> Devam Et</a>
+                            </div>
+                        </div>
+
+                    </article>
+                }
+                <!-- End blog entry -->
+
+
+                <div class="blog-pagination">
+                    @Html.PagedListPager(Model, Sayfa => Url.Action("Blog", new { Sayfa }), PagedListRenderOptions.Classic)
+
+                </div>
+
+            </div><!-- End blog entries list -->
+
+            <div class="col-lg-4">
+
+                <div class="sidebar">
+
+                    <h3 class="sidebar-title">Search</h3>
+                    <div class="sidebar-item search-form">
+                        <form action="">
+                            <input type="text">
+                            <button type="submit"><i class="bi bi-search"></i></button>
+                        </form>
+                    </div><!-- End sidebar search formn-->
+
+                    <h3 class="sidebar-title">Kategoriler</h3>
+                    <div class="sidebar-item categories">
+                        @{
+                            Html.RenderAction("BlogKategoriPartial", "Home");
+                        }
+                    </div><!-- End sidebar categories-->
+
+                    <h3 class="sidebar-title">Son Blog Kayıtları</h3>
+                    <div class="sidebar-item recent-posts">
+                        @{
+                            Html.RenderAction("BlogKayıtPartial", "Home");
+                        }
+
+                    </div><!-- End sidebar recent posts-->
+                    <!-- End sidebar tags-->
+
+                </div><!-- End sidebar -->
+
+            </div><!-- End blog sidebar -->
+
+        </div>
+
+    </div>
+</section>
+

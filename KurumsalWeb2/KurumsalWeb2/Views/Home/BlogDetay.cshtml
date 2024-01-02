@@ -1,0 +1,136 @@
+﻿@model KurumsalWeb2.Models.Model.Blog
+@{
+    ViewBag.Title = "BlogDetay";
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+
+
+<section id="blog" class="blog">
+    <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+            <div class="col-lg-8 entries">
+                <article class="entry">
+
+
+                    <h2 class="entry-title">
+                        @Model.Baslik
+                    </h2>
+                    <div class="entry-meta">
+                        <ul>
+                            <li class="d-flex align-items-center"><i class="bi bi-person"></i> @Model.Kategori.KategoriAd</li>
+                        </ul>
+                    </div>
+                    <br>
+                    <div class="entry-img">
+                        <img src="@Model.ResimURL" width="200" height="100" alt="@Model.Baslik" class="img-fluid">
+                    </div>
+                    <p>
+                        @Html.Raw(Model.Icerik)
+                    </p>
+
+                    <div class="entry-content">
+
+
+
+                    </div>
+
+                </article>
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <h3>Yorum Yap</h3>
+                    <form>
+                        <input type="text" id="adsoyad" placeholder="Adınız Soyadınız" required class="form-control" />
+                        <br />
+                        <input type="email" id="eposta" placeholder="Mail Adresiniz" required class="form-control" />
+                        <br />
+                        <textarea typeof="text" id="icerik" class="form-control"> </textarea>
+                        <br />
+                        <button type="submit" class="btn btn-success" id="gonder" value="Yorum Yap">Gönder</button>
+                    </form>
+
+                </div>
+
+            </div>
+                
+               
+                
+            </div><!-- End blog entries list -->
+
+            <div class="col-lg-4">
+
+                <div class="sidebar">
+
+                    <h3 class="sidebar-title">Search</h3>
+                    <div class="sidebar-item search-form">
+                        <form action="">
+                            <input type="text">
+                            <button type="submit"><i class="bi bi-search"></i></button>
+                        </form>
+                    </div><!-- End sidebar search formn-->
+
+                    <h3 class="sidebar-title">Kategoriler</h3>
+                    <div class="sidebar-item categories">
+                        @{
+                            Html.RenderAction("BlogKategoriPartial", "Home");
+                        }
+                    </div><!-- End sidebar categories-->
+
+                    <h3 class="sidebar-title">Son Blog Kayıtları</h3>
+                    <div class="sidebar-item recent-posts">
+                        @{
+                            Html.RenderAction("BlogKayıtPartial", "Home");
+                        }
+
+                    </div><!-- End sidebar recent posts-->
+
+                    <h3 class="sidebar-title">Tags</h3>
+                    <div class="sidebar-item tags">
+                        <ul>
+                            <li><a href="#">App</a></li>
+                            <li><a href="#">IT</a></li>
+                            <li><a href="#">Business</a></li>
+                            <li><a href="#">Mac</a></li>
+                            <li><a href="#">Design</a></li>
+                            <li><a href="#">Office</a></li>
+                            <li><a href="#">Creative</a></li>
+                            <li><a href="#">Studio</a></li>
+                            <li><a href="#">Smart</a></li>
+                            <li><a href="#">Tips</a></li>
+                            <li><a href="#">Marketing</a></li>
+                        </ul>
+                    </div><!-- End sidebar tags-->
+
+                </div><!-- End sidebar -->
+
+            </div><!-- End blog sidebar -->
+
+        </div>
+
+    </div>
+</section>
+
+<script src="~/Scripts/jquery-3.7.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#gonder').click(function () {
+            var adisoyadi = $('#adsoyad').val();
+            var epostasi = $('#eposta').val();
+            var yorumunuz = $('#icerik').val();
+            $.ajax({
+                url: '/Home/YorumYap/',
+                data: { adsoyad: adisoyadi, eposta: epostasi, icerik: yorumunuz, blogid:@Model.BlogId },
+                type: 'POST',
+                dataType: 'json',
+                succuess: function (data) {
+                    alert("Yorumunuz eklendi,kontrol edildikten sonra yayınlanacaktır.");
+                }
+
+            });
+        });
+    })
+    
+
+</script>

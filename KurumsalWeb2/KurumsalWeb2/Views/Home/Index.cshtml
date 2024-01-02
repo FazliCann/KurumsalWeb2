@@ -1,0 +1,34 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+    ViewBag.Title = "Anasayfa";
+}
+
+<section id="hero" class="d-flex justify-cntent-center align-items-center">
+    <div id="heroCarousel" class="container carousel carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+        @{
+            Html.RenderAction("SliderPartial","Home");
+        }
+    </div>
+</section>
+
+<main id="main">
+
+    
+
+    <!-- ======= Services Section ======= -->
+    <section class="services">
+
+        @{
+
+            Html.RenderAction("HizmetPartial", "Home");
+        }
+    </section>
+    
+    <!-- End Services Section -->
+    <!-- ======= Why Us Section ======= -->
+    <!-- End Why Us Section -->
+    <!-- ======= Features Section ======= -->
+    <!-- End Features Section -->
+
+</main><!-- End #main -->

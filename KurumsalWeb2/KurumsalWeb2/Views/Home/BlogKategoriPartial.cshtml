@@ -1,0 +1,10 @@
+﻿@using KurumsalWeb2.Helper
+@model IEnumerable<KurumsalWeb2.Models.Model.Kategori>
+<ul>
+    @foreach (var item in Model)
+    {
+        <li><a href="/Blog/@SeoHelper.ToSeoUrl(item.KategoriAd).ToLower()/@item.KategoriId">@item.KategoriAd<span>(@item.Blogs.Count())</span></a></li>
+    }
+
+
+</ul>

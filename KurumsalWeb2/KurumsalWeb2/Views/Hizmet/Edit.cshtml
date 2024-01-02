@@ -1,0 +1,33 @@
+﻿@model KurumsalWeb2.Models.Model.Hizmet
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Hizmet Düzenle</h2>
+
+<div class="form">
+
+    <form class="row g-3" method="post" action="/Hizmet/Edit/@Model.HizmetId" enctype="multipart/form-data">
+        <div class="col-12">
+            <label for="inputNanme4" class="form-label">Başlık</label>
+            <input type="text" name="Baslik" class="form-control" id="Baslik" required value="@Model.Baslik">
+        </div>
+        <div class="col-12">
+            <label for="inputEmail4" class="form-label">Açıklama</label>
+            <textarea name="Aciklama" class="ckeditor" required>@Model.Aciklama</textarea>
+        </div>
+        <div class="col-12">
+            <label for="inputPassword4" class="form-label">Önceki Resim</label></br>
+            <img src="@Model.ResimURL" width="150" height="150"/>
+        </div>
+        <div class="col-12">
+            <label for="inputPassword4" class="form-label">Resim</label>
+            <input type="file"  class="form-control" id="ResimURL" name="ResimURL" accept=".png,.jpg,.jpeg" />
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <button type="reset" class="btn btn-danger"><a href="/Hizmet/Index/">İptal</a></button>
+        </div>
+    </form><!-- Vertical Form -->
+</div>
